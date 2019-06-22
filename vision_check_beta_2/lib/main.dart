@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'components/home_appbar.dart';
+import 'components/flatbutton_for_homepage.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +20,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List data;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,8 +43,19 @@ class HomePage extends StatelessWidget {
         backgroundColor: Color(0xFFFFFFFF),
       ),
       bottomNavigationBar: HomeAppBar(),
-      body: BodyOfHomePage(),
+      body: new ListView.builder(
+        itemCount: data == null ? 0 : data.length,
+        itemBuilder: (BuildContext context, int index) {
+          return;
+        },
+      ),
     );
+  }
+
+  void clickedAddDreamButton(List data, String text, IconData icon) {
+    FlatButtonForHomePage temp =
+        new FlatButtonForHomePage(nameOfVision: text, iconOfVision: icon);
+    data.add(temp);
   }
 }
 
