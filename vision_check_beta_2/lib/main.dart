@@ -27,6 +27,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List data;
+  int counter = 0;
+
+  FlatButton getData() {
+    return data.last;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,20 +57,24 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: <Widget>[
           FlatButton(
-              onPressed: () {
-                clickedAddDreamButton('New Vision', Icons.code);
-              },
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Icon(Icons.add),
-                ],
-              )),
+            onPressed: () {
+              data[counter] = (Text('hello'));
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(Icons.add),
+                Text('Add a Vision'),
+              ],
+            ),
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: data == null ? 0 : data.length,
               itemBuilder: (BuildContext context, int index) {
-                return data[index];
+                return new Card(
+                  child: data[index],
+                );
               },
             ),
           ),
@@ -72,40 +87,5 @@ class _HomePageState extends State<HomePage> {
 //    FlatButtonForHomePage temp =
 //        new FlatButtonForHomePage(nameOfVision: text, iconOfVision: icon);
     data.add(Text(text));
-  }
-}
-
-class ListDisplay extends StatefulWidget {
-  @override
-  State createState() => new DynamicList();
-}
-
-class DynamicList extends State<ListDisplay> {
-  List<String> litems = [];
-  final TextEditingController eCtrl = new TextEditingController();
-  @override
-  Widget build(BuildContext ctxt) {
-    return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Dynamic Demo"),
-        ),
-        body: new Column(
-          children: <Widget>[
-            new TextField(
-              controller: eCtrl,
-              onSubmitted: (text) {
-                litems.add(text);
-                eCtrl.clear();
-                setState(() {});
-              },
-            ),
-            new Expanded(
-                child: new ListView.builder(
-                    itemCount: litems.length,
-                    itemBuilder: (BuildContext ctxt, int Index) {
-                      return new Text(litems[Index]);
-                    }))
-          ],
-        ));
   }
 }
