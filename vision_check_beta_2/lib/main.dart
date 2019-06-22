@@ -43,25 +43,69 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Color(0xFFFFFFFF),
       ),
       bottomNavigationBar: HomeAppBar(),
-      body: new ListView.builder(
-        itemCount: data == null ? 0 : data.length,
-        itemBuilder: (BuildContext context, int index) {
-          return;
-        },
+      body: Column(
+        children: <Widget>[
+          FlatButton(
+              onPressed: () {
+                clickedAddDreamButton('New Vision', Icons.code);
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(Icons.add),
+                ],
+              )),
+          Expanded(
+            child: ListView.builder(
+              itemCount: data == null ? 0 : data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return data[index];
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  void clickedAddDreamButton(List data, String text, IconData icon) {
-    FlatButtonForHomePage temp =
-        new FlatButtonForHomePage(nameOfVision: text, iconOfVision: icon);
-    data.add(temp);
+  void clickedAddDreamButton(String text, IconData icon) {
+//    FlatButtonForHomePage temp =
+//        new FlatButtonForHomePage(nameOfVision: text, iconOfVision: icon);
+    data.add(Text(text));
   }
 }
 
-class BodyOfHomePage extends StatelessWidget {
+class ListDisplay extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return Container();
+  State createState() => new DynamicList();
+}
+
+class DynamicList extends State<ListDisplay> {
+  List<String> litems = [];
+  final TextEditingController eCtrl = new TextEditingController();
+  @override
+  Widget build(BuildContext ctxt) {
+    return new Scaffold(
+        appBar: new AppBar(
+          title: new Text("Dynamic Demo"),
+        ),
+        body: new Column(
+          children: <Widget>[
+            new TextField(
+              controller: eCtrl,
+              onSubmitted: (text) {
+                litems.add(text);
+                eCtrl.clear();
+                setState(() {});
+              },
+            ),
+            new Expanded(
+                child: new ListView.builder(
+                    itemCount: litems.length,
+                    itemBuilder: (BuildContext ctxt, int Index) {
+                      return new Text(litems[Index]);
+                    }))
+          ],
+        ));
   }
 }
