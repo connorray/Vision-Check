@@ -27,17 +27,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List data;
-  int counter = 0;
-
-  FlatButton getData() {
-    return data.last;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    this.getData();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +46,18 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: <Widget>[
           FlatButton(
-            onPressed: () {
-              data[counter] = (Text('hello'));
-            },
+            onPressed: () {},
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Icon(Icons.add),
-                Text('Add a Vision'),
+                Icon(
+                  Icons.add,
+                  size: 50.0,
+                ),
+                Text(
+                  'Add a Vision',
+                  style: TextStyle(fontSize: 20.0),
+                ),
               ],
             ),
           ),
@@ -72,9 +65,7 @@ class _HomePageState extends State<HomePage> {
             child: ListView.builder(
               itemCount: data == null ? 0 : data.length,
               itemBuilder: (BuildContext context, int index) {
-                return new Card(
-                  child: data[index],
-                );
+                return data[index];
               },
             ),
           ),
@@ -84,8 +75,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void clickedAddDreamButton(String text, IconData icon) {
-//    FlatButtonForHomePage temp =
-//        new FlatButtonForHomePage(nameOfVision: text, iconOfVision: icon);
-    data.add(Text(text));
+    FlatButtonForHomePage temp =
+        new FlatButtonForHomePage(nameOfVision: text, iconOfVision: icon);
+    data.add(temp);
   }
 }
